@@ -1,5 +1,6 @@
 # Cave Adventure
 
+
 name = input("Welcome adventurer! What is your name?\n")
 print("Hello, " + name + ". We are going to go on an adventure! \n")
 print("You wake up and find yourself outside. ")
