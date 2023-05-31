@@ -1,13 +1,14 @@
 # Cave Adventure
 
-
 name = input("Welcome adventurer! What is your name?\n")
 print("Hello, " + name + ". We are going to go on an adventure! \n")
 print("You wake up and find yourself outside. ")
 
-sword = False
-lantern = False
-key = False
+sword = "Sword"
+lantern = "Lantern"
+key = "Key"
+
+inventory = []
 
 def caveEntrance():
     print("You are standing outside and in front of you is the entrance to a cave. ")
@@ -59,7 +60,7 @@ def caveRoom2():
     print("There is a little bit of sunlight, and you take a look around. You notice a shiny key on the ground beside you.")
     pickUp = input("Do you want to pick up the key? (Yes/No) \n")
     if pickUp.lower() == "yes":
-        key = True
+        inventory.append(key)
         print("This item has been added to your inventory.")
     print("There is a wall to your left and right.")
     print("Behind you is the beginning of the cave.")
@@ -108,7 +109,7 @@ def caveRoom4():
     print("You continue following the path and see a lantern on the ground.")
     pickUp = input("Do you want to pick it up? (Yes/No)\n")
     if pickUp.lower() == "yes":
-        lantern = True
+        inventory.append(lantern)
         print("You pick up the lantern and turn it on. The lantern works and you can now see clearly.")
         print("This item has been added into your inventory. ")
     print("There is a wall in front of you and to your right.")
@@ -136,28 +137,29 @@ def caveRoom4():
 def caveRoom5():
     global lantern
     global sword
-    if lantern == True:
+    print(f"Current inventory: {inventory}")  # Add this line to print inventory
+    if lantern in inventory:
         print("You continue following the path while holding up your lantern, and see a skeleton leaning against the wall holding a big sword.")
         pickUp = input("Would you like to pick up the sword? (Yes/No) \n")
         if pickUp.lower() == "yes":
-            sword = True
+            inventory.append(sword)
             print("You pick the sword up and it goes into your inventory.")
     else:
         print("You continue following the path. It is too dark to see.")
 
     print("Suddenly you hear a noise... there's a bear running toward you!")
 
-    if sword == True and lantern == True:
+    if sword in inventory and lantern in inventory:
         print("You swing the sword and kill the bear.\n")
-    if sword == True and lantern == False:
+    if sword in inventory and lantern not in inventory:
         print("You can't see where the bear is, so you swing the sword wildly. The bear kills you.\n")
         quit()
-    if lantern == True and sword == False:
+    if lantern in inventory and sword not in inventory:
         print("You swing the lantern wildly and scare the bear away.\n")
-    if lantern == False and sword == False:
+    if lantern not in inventory and sword not in inventory:
         print("You were attacked by the bear. You died.\n")
         quit()
-    if lantern == False:
+    if lantern not in inventory:
         print("It is too dark in the cave and you have to guess which way to go.")
     else:
         print("There is a dark pit in front of you.")
@@ -233,10 +235,10 @@ def caveRoom7():
 def caveRoom8():
     global sword
     print("You have now made it to the end of the cave, but there are vines blocking the exit....")
-    if sword == True:
+    if sword in inventory:
         print("You cut the vines with your sword, and you notice a lock on the wall in front of you. \n")
         caveRoom9()
-    if lantern == True:
+    if lantern in inventory:
         print("You hold the lantern up to the vines and burn them. You notice a lock on the wall in front of you. \n")
         caveRoom9()
     else:
@@ -261,7 +263,7 @@ def caveRoom8():
 def caveRoom9():
     global key
     print("You have to unlock the exit. ")
-    if key == True:
+    if key in inventory:
         print("You attempt to unlock the door with your key. The door unlocks and you have now made it out of the cave!")
         caveExit()
     else:
