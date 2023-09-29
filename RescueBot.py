@@ -1,3 +1,5 @@
+# Rescue Bot
+
 import pygame
 pygame.init()
 
